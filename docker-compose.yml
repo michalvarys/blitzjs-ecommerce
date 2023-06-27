@@ -1,11 +1,28 @@
-version: "3.7"
+version: "3.8"
 services:
-  db:
-    image: postgres:latest
-    volumes:
-      - data:/var/lib/postgresql/data
-    env_file: ./.env.local #Here we are using the already existing .env.local file
+  app:
+    build:
+      context: .
+      target: prod
+    env_file: .env.local
+    environment:
+      - NODE_ENV=development
     ports:
-      - "5432:5432"
+      - 3000:3000
+    command: blitz start
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+
+  postgres:
+    image: postgres:12.4
+    env_file: .env.local
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+
 volumes:
-  data:
+  db-data:

@@ -7,7 +7,7 @@
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "test": "jest",
     "test:watch": "jest --watch",
-    "start": "docker-compose up && blitz start"
+    "start": "docker-compose up"
   },
   "browserslist": [
     "defaults"
